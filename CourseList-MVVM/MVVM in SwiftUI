@@ -1,0 +1,8 @@
+MVVM в SwiftUI строится по следующему принципу:
+
+    1)Создается модель представления (ViewModel  ObservableObject);
+    
+    2)Определяем набор свойств за которыми будем следить - @Published
+    Или objectWillChange: ObservableObjectPublisher для слежки над всем классом целиком;
+    
+    3)Определяем подписчика @StateObject (viewModel) и работаем с экземпляром модели viewModel.
