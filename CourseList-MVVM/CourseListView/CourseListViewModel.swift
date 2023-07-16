@@ -20,7 +20,9 @@ final class CourseListViewModel: ObservableObject {
     func fetchCourses() async {
         do {
             let courses = try await NetworkManager.shared.fetchCourses()
-            rows = courses.map { CourseDetailsViewModel(course: $0) }
+            await MainActor.run {
+                rows = courses.map { CourseDetailsViewModel(course: $0) }
+            }
         } catch {
             print(error)
         }

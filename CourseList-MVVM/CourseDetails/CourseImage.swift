@@ -8,31 +8,30 @@
 import SwiftUI
 
 struct CourseImage: View {
-    let imageData: Data
+    let imageUrl: URL
     let imageSize: CGSize
     let cornerRadius: CGFloat
     let shadowIsOn: Bool
     
     var body: some View {
-        getImage(from: imageData)
-            .resizable()
-            .frame(width: imageSize.width, height: imageSize.height)
-            .cornerRadius(cornerRadius)
-            .shadow(radius: shadowIsOn ? 10 : 0)
-    }
-    
-    private func getImage(from data: Data) -> Image {
-        guard let image = UIImage(data: data) else {
-            return Image(systemName: "xmark.shield")
+        AsyncImage(url: imageUrl) { image in
+            image
+                .resizable()
+                .frame(width: imageSize.width, height: imageSize.height)
+                .cornerRadius(cornerRadius)
+                .shadow(radius: shadowIsOn ? 10 : 0)
+        } placeholder: {
+            Image(systemName: "xmark.shield")
+                .resizable()
+                .frame(width: imageSize.width, height: imageSize.height)
         }
-        return Image(uiImage: image)
     }
 }
 
 struct CourseImage_Previews: PreviewProvider {
     static var previews: some View {
         CourseImage(
-            imageData: Data(),
+            imageUrl: URL(string: "https://swiftbook.ru/wp-content/uploads/2018/03/2-courselogo.jpg")!,
             imageSize: CGSize(width: 230, height: 180),
             cornerRadius: 30,
             shadowIsOn: true

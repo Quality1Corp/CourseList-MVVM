@@ -12,15 +12,8 @@ final class CourseDetailsViewModel: ObservableObject {
         course.name
     }
     
-    var imageData: Data {
-        var imageData = Data()
-        
-        do {
-            imageData = try NetworkManager.shared.fetchImageData(from: course.imageUrl)
-        } catch {
-            print(error)
-        }
-        return imageData
+    var imageUrl: URL {
+        URL(string: course.imageUrl)!
     }
     
     var numberOfLessons: String {
